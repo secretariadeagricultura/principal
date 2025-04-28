@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEVEREIRO - Feira da Agricultura Familiar e Empreendedorismo</title>
+  <link rel="icon" href="imagens/favicon.png" type="image/png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #005a2f;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .banner img {
+      max-width: 120px;
+      margin-bottom: 15px;
+    }
+    .banner h1 {
+      font-size: 2.5em;
+    }
+    .banner p {
+      font-size: 1.2em;
+    }
+    nav {
+      background-color: #027444;
+    }
+
+    .menu-toggle {
+      display: none;
+      background-color: #035b30;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      position: relative;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px;
+      display: block;
+    }
+
+    nav ul li:hover > ul {
+      display: block;
+    }
+
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      background-color: #035b30;
+      top: 100%;
+      left: 0;
+      min-width: 160px;
+      z-index: 1000;
+    }
+
+    nav ul li ul li a {
+      padding: 10px;
+      border-bottom: 1px solid #04774b;
+    }
+
+    nav ul li:hover > a {
+      background-color: #005a2f;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li ul li a:hover {
+      background-color: #0000001f;
+      transition: background-color 0.3s ease;
+    }
+
+    /* sessão notícias */
+    .noticia-wrapper {
+      background: #fff;
+      margin: 40px auto;
+      padding: 20px;
+      max-width: 960px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .noticia-wrapper h2 {
+      font-size: 2em;
+      color: #005a2f;
+      margin-bottom: 20px;
+    }
+    .noticia-content {
+  font-size: 1.1em;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.noticia-content img {
+  float: left;
+  width: 320px;
+  max-width: 100%;
+  margin: 0 20px 20px 0;
+  border-radius: 10px;
+}
+    .noticia-text {
+      flex: 2;
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    /* slide de fotos */
+    .slider-wrapper {
+  max-width: 960px;
+  margin: 20px auto 40px auto;
+  position: relative;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #fff;
+}
+
+.slide {
+  display: none;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.slide.active {
+  display: block;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+}
+
+.caption {
+  padding: 15px 20px 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.slider button.prev,
+.slider button.next {
+  cursor: pointer;
+  position: absolute;
+  top: 45%;
+  width: auto;
+  padding: 10px 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  background-color: #005a2f;
+  border-radius: 50%;
+  user-select: none;
+  transform: translateY(-50%);
+  transition: background 0.3s ease;
+}
+
+.slider button.prev:hover,
+.slider button.next:hover {
+  background-color: #027444;
+}
+
+.slider button.prev {
+  left: 10px;
+}
+
+.slider button.next {
+  right: 10px;
+}
+
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 35px;
+      margin-top: 40px;
+      font-size: 1.1em;
+    }
+    .footer-logo {
+      width: 180px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav ul { display: none; flex-direction: column; }
+      nav ul.show { display: flex; }
+      .noticia-content { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- logo da secretaria -->
+  <div class="banner">
+    <img src="imagens/logo.png" alt="Logo Secretaria de Agricultura">
+    <h1>Secretaria de Agricultura e Pesca</h1>
+    <p>Promovendo o desenvolvimento do campo com eventos e iniciativas!</p>
+  </div>
+</header>
+
+<!-- menu -->
+<div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
+  <nav>
+    <ul id="nav-menu">
+      <li><a href="#">Início</a></li>
+      <li>
+        <a href="#">Eventos</a>
+        <ul>
+          <li><a href="menu/eventos/feira da agricultura/index.html">Feiras da Agricultura e Empreendedorismo</a></li>
+          <li><a href="#">Oficinas e formações</a></li>
+          <li><a href="#">Seminários</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Programas</a>
+        <ul>
+          <li><a href="#">PAA Alimentos</a></li>
+          <li><a href="#">Alevinos</a></li>
+          <li><a href="#">Secretaria Itinerante</a></li>
+          <li><a href="#">Horta Comunitária</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- sessão de notícias -->
+<section class="noticia-wrapper">
+  <h2>PAA: Alimento na mesa e renda no campo</h2>
+  <div class="noticia-content">
+    <img src="imagens/imagem.jpg" alt="Feira em andamento">
+    <p>Criado em 2003, o Programa de Aquisição de Alimentos (PAA) é uma das principais políticas públicas voltadas à segurança alimentar e ao fortalecimento da agricultura familiar no Brasil. A proposta é simples e eficiente: o governo compra alimentos de pequenos produtores e os destina a instituições que atendem pessoas em situação de vulnerabilidade social.</p>
+    <p>Sem necessidade de licitação, os produtos são adquiridos diretamente de agricultores familiares, cooperativas e associações, que recebem um preço justo pela produção. Esses alimentos são então distribuídos a escolas, hospitais, CRAS, creches, abrigos e outras entidades socioassistenciais, garantindo refeições saudáveis e nutritivas a quem mais precisa.</p>
+    <p>O PAA cumpre dupla função: promove o acesso à alimentação e impulsiona a economia local, gerando renda no campo e estimulando práticas agrícolas sustentáveis. Além disso, incentiva a organização dos produtores, facilita o acesso a políticas públicas e valoriza o trabalho da agricultura familiar. </p>
+    <p>Com atuação descentralizada e parcerias entre União, estados, municípios e sociedade civil, o programa é um elo importante entre quem produz e quem precisa. Em tempos de desafios sociais e econômicos, o PAA mostra-se uma estratégia essencial para combater a fome e fortalecer o desenvolvimento rural com justiça e dignidade.</p>
+  </div>
+</section>
+
+<!-- slides de fotos das entregas do PAA -->
+<section class="slider-wrapper">
+  <div class="slider">
+    <div class="slide active">
+      <img src="imagens/slide1.jpg" alt="Agricultores vendendo produtos" />
+      <p class="caption">Agricultores expondo produtos frescos na feira.</p>
+    </div>
+    <div class="slide">
+      <img src="imagens/slide2.jpg" alt="Barracas organizadas" />
+      <p class="caption">Estrutura organizada valoriza o empreendedor local.</p>
+    </div>
+    <div class="slide">
+      <img src="imagens/slide3.jpg" alt="Produtos agroecológicos" />
+      <p class="caption">Produtos saudáveis e agroecológicos acessíveis.</p>
+    </div>
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+</section>
+
+<!-- rodapé -->
+<footer>
+  <img src="imagens/logo-prefeitura.png" alt="Logo Prefeitura" class="footer-logo">
+  <p>&copy; 2025 Secretaria de Agricultura. Todos os direitos reservados.</p>
+  <p>Telefone: (00) 1234-5678 | Email: contato@agricultura.gov.br</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById("nav-menu").classList.toggle("show");
+  }
+
+  let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (index + slides.length) % slides.length;
+  slides[currentSlide].classList.add("active");
+}
+
+function moveSlide(step) {
+  showSlide(currentSlide + step);
+}
+
+// inicia com o primeiro slide visível
+showSlide(currentSlide);
+
+</script>
+
+</body>
+</html>

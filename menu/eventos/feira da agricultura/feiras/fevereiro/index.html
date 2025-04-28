@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEVEREIRO - Feira da Agricultura Familiar e Empreendedorismo</title>
+  <link rel="icon" href="imagens/favicon.png" type="image/png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      height: 100%;
+    }
+
+    header {
+      background-color: #005a2f;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .banner h1 {
+      font-size: 3em;
+    }
+
+    .banner p {
+      font-size: 1.2em;
+    }
+
+    nav {
+      background-color: #027444;
+    }
+
+    .menu-toggle {
+      display: none;
+      background-color: #035b30;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      position: relative;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px;
+      display: block;
+    }
+
+    nav ul li:hover > ul {
+      display: block;
+    }
+
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      background-color: #035b30;
+      top: 100%;
+      left: 0;
+      min-width: 160px;
+      z-index: 1000;
+    }
+
+    nav ul li ul li a {
+      padding: 10px;
+      border-bottom: 1px solid #04774b;
+    }
+
+    nav ul li:hover > a {
+      background-color: #005a2f;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li ul li a:hover {
+      background-color: #0000001f;
+      transition: background-color 0.3s ease;
+    }
+
+    .eventos-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding: 40px 20px;
+      background-color: #fff;
+    }
+
+    .eventos-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .eventos-header img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    .eventos-header h2 {
+      font-size: 2em;
+      color: #005a2f;
+    }
+
+    .eventos-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-left: 20px;
+      gap: 20px;
+    }
+
+    .evento {
+      flex: 0 0 auto;
+      width: 360px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .evento:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .evento img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .evento h3 {
+      font-size: 1.5em;
+      margin: 15px;
+    }
+
+    .evento p {
+      font-size: 1.2em;
+      color: #555;
+      margin: 0 15px 15px 15px;
+    }
+
+    .eventos-wrapper:hover .arrow-button {
+      display: block;
+    }
+
+    .container {
+      padding: 20px;
+      text-align: justify;
+      font-size: 1.2em;
+    }
+
+    .slides-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      overflow: hidden;
+      height: 350px;
+      background-color: #ddd;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img,
+    .slides video {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.5);
+      border: none;
+      font-size: 2rem;
+      color: #005a2f;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      max-width: 90vw;
+      max-height: 80vh;
+    }
+
+    .modal img,
+    .modal video {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .modal .carousel-button {
+      color: white;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 35px;
+      margin: 0 0 0 0;
+      position: relative;
+      font-size: 1.1em;
+      margin-bottom: 0;
+    }
+
+    .footer-logo {
+      position: absolute;
+      bottom: 22px;
+      left: 30px;
+      width: 180px;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #027444;
+        width: 100%;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 0;
+        border-bottom: 1px solid #046b3a;
+      }
+
+      .slides-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-logo {
+        position: static;
+        display: block;
+        margin: 0 auto 10px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+ 
+<header>
+  <div class="banner">
+    <img src="imagens/logo.png" alt="Logo Secretaria de Agricultura" style="max-width: 120px; margin-bottom: 15px;">
+    <h1>Secretaria de Agricultura e Pesca</h1>
+    <p>Promovendo o desenvolvimento do campo com eventos e iniciativas!</p>
+  </div>
+</header>
+
+<div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
+<nav>
+  <ul id="nav-menu">
+    <li><a href="#">Início</a></li>
+    <li><a href="#">Eventos</a>
+      <ul>
+        <li><a href="#">Feiras da Agricultura e Empreendedorismo</a></li>
+        <li><a href="#">Oficinas e formações</a></li>
+        <li><a href="#">Seminários</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Programas</a>
+      <ul>
+        <li><a href="#">PAA Alimentos</a></li>
+        <li><a href="#">Alevinos</a></li>
+        <li><a href="#">Secretaria Itinerante</a></li>
+        <li><a href="#">Horta Comunitária</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Contato</a></li>
+  </ul>
+</nav>
+
+<section class="eventos-wrapper">
+  <div class="eventos-header">
+    <img src="imagens/logo-feira.png" alt="Logo Feira" style="max-width: 150px; margin-right: 10px;">
+    <h2>Feira da Agricultura Familiar e Empreendedorismo<br>FEVEREIRO</h2>
+  </div>
+
+  <section class="container">
+    <p>A Feira da Agricultura Familiar e Empreendedorismo tem como objetivo valorizar os pequenos produtores, artesãos e iniciativas sustentáveis da nossa região. Durante o evento, os visitantes encontram produtos frescos, oficinas, atrações culturais, apresentações musicais e espaços de aprendizado para toda a comunidade.</p>
+  </section>
+
+  <div class="slides-wrapper">
+    <div class="carousel" id="img-carousel">
+      <button class="carousel-button prev" onclick="prevSlide('img')">&#10094;</button>
+      <div class="slides" id="img-slides">
+        <img src="imagens/slide1.jpg" alt="Imagem 1" onclick="openModal('img', 0)">
+        <img src="imagens/slide2.jpg" alt="Imagem 2" onclick="openModal('img', 1)">
+        <img src="imagens/slide3.jpg" alt="Imagem 3" onclick="openModal('img', 2)">
+      </div>
+      <button class="carousel-button next" onclick="nextSlide('img')">&#10095;</button>
+    </div>
+
+    <div class="carousel" id="video-carousel">
+      <button class="carousel-button prev" onclick="prevSlide('video')">&#10094;</button>
+      <div class="slides" id="video-slides">
+        <video src="videos/video1.mp4" onclick="openModal('video', 0)" muted></video>
+        <video src="videos/video2.mp4" onclick="openModal('video', 1)" muted></video>
+      </div>
+      <button class="carousel-button next" onclick="nextSlide('video')">&#10095;</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <button class="carousel-button prev" onclick="modalPrev()">&#10094;</button>
+    <div class="modal-content" id="modal-content"></div>
+    <button class="carousel-button next" onclick="modalNext()">&#10095;</button>
+  </div>
+
+  <section class="container">
+    <p>Com foco em sustentabilidade, inclusão e fortalecimento da economia local, a feira se consolida como uma vitrine de boas práticas e oportunidades. Prestigie nossos produtores e descubra o potencial transformador do campo!</p>
+  </section>
+
+  <footer>
+    <img src="imagens/logo-prefeitura.png" alt="Logo Prefeitura" class="footer-logo">
+    <p>&copy; 2025 Secretaria de Agricultura. Todos os direitos reservados.</p>
+    <p>Telefone: (00) 1234-5678 | Email: contato@agricultura.gov.br</p>
+  </footer>
+
+  <script>
+    const imgSlides = document.getElementById("img-slides").children;
+    const videoSlides = document.getElementById("video-slides").children;
+    let imgIndex = 0;
+    let videoIndex = 0;
+    let modalType = "img";
+
+    function toggleMenu() {
+      document.getElementById("nav-menu").classList.toggle("show");
+    }
+
+    function updateSlide(type) {
+      const slides = document.getElementById(type + "-slides");
+      const index = type === "img" ? imgIndex : videoIndex;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide(type) {
+      if (type === "img") {
+        imgIndex = (imgIndex + 1) % imgSlides.length;
+      } else {
+        videoIndex = (videoIndex + 1) % videoSlides.length;
+      }
+      updateSlide(type);
+    }
+
+    function prevSlide(type) {
+      if (type === "img") {
+        imgIndex = (imgIndex - 1 + imgSlides.length) % imgSlides.length;
+      } else {
+        videoIndex = (videoIndex - 1 + videoSlides.length) % videoSlides.length;
+      }
+      updateSlide(type);
+    }
+
+    function openModal(type, index) {
+      modalType = type;
+      if (type === "img") imgIndex = index;
+      else videoIndex = index;
+      updateModal();
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function updateModal() {
+      const modal = document.getElementById("modal-content");
+      modal.innerHTML = "";
+      let element;
+      if (modalType === "img") {
+        element = imgSlides[imgIndex].cloneNode();
+      } else {
+        element = videoSlides[videoIndex].cloneNode();
+        element.controls = true;
+        element.autoplay = true;
+      }
+      modal.appendChild(element);
+    }
+
+    function modalNext() {
+      nextSlide(modalType);
+      updateModal();
+    }
+
+    function modalPrev() {
+      prevSlide(modalType);
+      updateModal();
+    }
+
+    document.getElementById("modal").addEventListener("click", function (e) {
+      if (e.target.id === "modal") this.style.display = "none";
+    });
+  </script>
+</body>
+</html>

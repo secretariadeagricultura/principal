@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secretaria de Agricultura e Pesca</title>
+  <link rel="icon" href="imagens/favicon.png" type="image/png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #005a2f;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .banner h1 {
+      font-size: 3em;
+    }
+
+    .banner p {
+      font-size: 1.2em;
+    }
+
+    nav {
+      background-color: #027444;
+    }
+
+    .menu-toggle {
+      display: none;
+      background-color: #035b30;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      position: relative;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px;
+      display: block;
+    }
+
+    nav ul li:hover > ul {
+      display: block;
+    }
+
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      background-color: #035b30;
+      top: 100%;
+      left: 0;
+      min-width: 160px;
+      z-index: 1000;
+    }
+
+    nav ul li ul li a {
+      padding: 10px;
+      border-bottom: 1px solid #04774b;
+    }
+
+    nav ul li:hover > a {
+      background-color: #005a2f;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li ul li a:hover {
+      background-color: #0000001f;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100vw;
+      height: 400px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100vw;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.4);
+      border: none;
+      font-size: 2rem;
+      color: #005a2f;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-button:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .eventos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px 20px;
+      background-color: #fff;
+    }
+
+    .evento {
+      background-color: #f9f9f9;
+      width: 30%;
+      min-width: 280px;
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .evento:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .evento img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .evento h3 {
+      font-size: 1.5em;
+      margin: 15px;
+    }
+
+    .evento p {
+      font-size: 1em;
+      color: #555;
+      margin: 0 15px 15px 15px;
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    .footer-logo {
+      position: absolute;
+      bottom: 22px;
+      left: 30px;
+      width: 200px;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #027444;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 0;
+        border-bottom: 1px solid #046b3a;
+      }
+
+      nav ul li ul {
+        position: static;
+        display: none;
+        background-color: #036a39;
+      }
+
+      nav ul li ul.show-submenu {
+        display: block;
+      }
+
+      .evento {
+        width: 90%;
+      }
+
+      .footer-logo {
+        position: static;
+        display: block;
+        margin: 0 auto 15px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="banner">
+      <img src="imagens/logo.png" alt="Logo Secretaria de Agricultura" style="max-width: 120px; margin-bottom: 15px;">
+      <h1>Secretaria de Agricultura e Pesca</h1>
+      <p>Promovendo o desenvolvimento do campo com eventos e iniciativas!</p>
+    </div>
+  </header>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
+  <nav>
+    <ul id="nav-menu">
+      <li><a href="#">Início</a></li>
+      <li>
+        <a href="#">Eventos</a>
+        <ul>
+          <li><a href="menu/eventos/feira da agricultura/index.html">Feiras da Agricultura e Empreendedorismo</a></li>
+          <li><a href="#">Oficinas e formações</a></li>
+          <li><a href="#">Seminários</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Programas</a>
+        <ul>
+          <li><a href="#">PAA Alimentos</a></li>
+          <li><a href="#">Alevinos</a></li>
+          <li><a href="#">Secretaria Itinerante</a></li>
+          <li><a href="#">Horta Comunitária</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </nav>
+
+  <div class="carousel">
+    <button class="carousel-button prev" onclick="prevSlide()">&#10094;</button>
+    <div class="slides" id="carouselSlides">
+      <img src="imagens/slide1.jpg" alt="Evento 1">
+      <img src="imagens/slide2.jpg" alt="Evento 2">
+      <img src="imagens/slide3.jpg" alt="Evento 3">
+    </div>
+    <button class="carousel-button next" onclick="nextSlide()">&#10095;</button>
+  </div>
+
+  <section class="eventos">
+    <div class="evento">
+      <img src="imagens/programa1.jpg" alt="Evento 1">
+      <h3>Feira da Agricultura e Empreendedorismo</h3>
+      <p>Exposição de produtos agículas e artesanato da nossa cidade.</p>
+    </div>
+    <div class="evento">
+      <img src="imagens/programa2.jpg" alt="Evento 2">
+      <h3>PAA - Programa de aquisição de alimentos</h3>
+      <p>Compra direta de agricultores para abastecer instituições sociais.</p>
+    </div>
+    <div class="evento">
+      <img src="imagens/programa3.jpg" alt="Evento 3">
+      <h3>Horta Comunitária</h3>
+      <p>Espaço coletivo para cultivo de alimentos, promovendo sustentabilidade, inclusão social e segurança alimentar.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div style="position: relative; padding: 20px;">
+      <img src="imagens/logo-prefeitura.png" alt="Logo no rodapé" class="footer-logo">
+      <p>&copy; 2025 Secretaria de Agricultura. Todos os direitos reservados.</p>
+      <p>Telefone: (00) 1234-5678 | Email: contato@agricultura.gov.br</p>
+      <div style="margin-top: 15px;">
+        <a href="https://www.instagram.com/sec.agriculturaepesca_?igsh=MXhoeHdtc3FmejF6aQ==" target="_blank" style="margin: 0 10px;">
+          <img src="imagens/instagram.png" alt="Instagram" style="width: 40px; height: 40px;">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("nav-menu").classList.toggle("show");
+    }
+
+    const slides = document.getElementById('carouselSlides');
+    const totalSlides = slides.children.length;
+    let index = 0;
+
+    function updateSlidePosition() {
+      slides.style.transform = `translateX(-${index * 100}vw)`;
+    }
+
+    function nextSlide() {
+      index = (index + 1) % totalSlides;
+      updateSlidePosition();
+    }
+
+    function prevSlide() {
+      index = (index - 1 + totalSlides) % totalSlides;
+      updateSlidePosition();
+    }
+
+    // Avança automaticamente o slide a cada 5 segundos
+  setInterval(nextSlide, 5000);
+
+    // Submenu toggle para dispositivos móveis
+    document.addEventListener("DOMContentLoaded", function () {
+      const linksComSubmenu = document.querySelectorAll("nav ul li > a");
+
+      linksComSubmenu.forEach(link => {
+        link.addEventListener("click", function (e) {
+          const submenu = this.nextElementSibling;
+          if (submenu && submenu.tagName === "UL" && window.innerWidth <= 768) {
+            e.preventDefault();
+            submenu.classList.toggle("show-submenu");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
